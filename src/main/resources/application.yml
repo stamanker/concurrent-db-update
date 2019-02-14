@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    banner-mode: "off"
+  session:
+    store-type: jdbc
+    jdbc:
+      initializer:
+        enabled: true
+  datasource:
+    url: jdbc:hsqldb:mem:taskprocdemo;sql.syntax_mys=true #jdbc:mysql://localhost/taskprocdemo
+    validation-query: SELECT 1
+    max-active: 10
+    max-idle: 8
+    min-idle: 6
+    initial-size: 3
+    test-on-borrow: true
+    test-on-return: true
+  # !!! https://vladmihalcea.com/2016/09/05/the-hibernate-enable_lazy_load_no_trans-anti-pattern/
+  #spring.repositories.properties.hibernate.enable_lazy_load_no_trans=true
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: true

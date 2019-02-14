@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--<springProfile name="dev,test">-->
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%date [%thread] %-5level %logger{36}.%M:%L %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="MAIN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>logs/main.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+                <fileNamePattern>logs/main.%i.log</fileNamePattern>
+                <minIndex>1</minIndex>
+                <maxIndex>2</maxIndex>
+            </rollingPolicy>
+            <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                <maxFileSize>5MB</maxFileSize>
+            </triggeringPolicy>
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M:%L %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="com.zaxxer.hikari" level="WARN">
+            <appender-ref ref="MAIN" />
+        </logger>
+
+        <logger name="org.hibernate" level="ERROR">
+            <appender-ref ref="MAIN" />
+        </logger>
+
+        <!--<logger name="org.hibernate.SQL" level="DEBUG">-->
+            <!--<appender-ref ref="MAIN" />-->
+        <!--</logger>-->
+
+        <logger name="org.springframework" level="ERROR">
+            <appender-ref ref="MAIN" />
+        </logger>
+
+        <root level="DEBUG">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="MAIN" />
+        </root>
+    <!--</springProfile>-->
+</configuration>
