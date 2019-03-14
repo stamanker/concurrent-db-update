@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@javax.persistence.Entity
+@Entity
 @Data
 @Table(name="task")
 @NoArgsConstructor
@@ -19,7 +19,7 @@ public class Task {
     public long id;
     public int state; //enum
     public String data;
-//    @Version
-//    public int version;
+    @Version
+    public int version;
 
 }

@@ -10,18 +10,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
-import java.util.Random;
 
 @Component
 public class Processor {
-
-    Random random = new Random();
 
     @Autowired
     TaskRepository repo;
 
     @Scheduled(fixedDelay = 10)
-    @Transactional(Transactional.TxType.REQUIRED)
+    @Transactional()
     public void process1() throws Exception {
         try {
             Task task = getTasks();
@@ -38,7 +35,7 @@ public class Processor {
     }
 
     @Scheduled(fixedDelay = 15)
-    @Transactional(Transactional.TxType.REQUIRED)
+    @Transactional()
     public void process2() throws Exception {
         try {
             Task task = getTasks();
