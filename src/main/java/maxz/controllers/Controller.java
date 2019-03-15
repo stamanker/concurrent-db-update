@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController("/")
 @RequestMapping(value = "/")
@@ -23,14 +25,17 @@ public class Controller {
     TaskRepository repository;
 
     @GetMapping("/")
-    public List<Task> getAllData() {
+    public Iterable<Task> getAllData() {
         return getData(null);
     }
 
     @GetMapping("/{state}")
-    public List<Task> getData(@PathVariable(value = "state", required = false) Integer state) {
-        System.out.println("Controller.getData");
+    public Iterable<Task> getData(@PathVariable(value = "state", required = false) Optional<Integer> state) {
+        System.out.println("Controller.getData by state: " + state);
         //log.info("get by state = {}", state);
-        return repository.findByState(state);
+        if(state.isPresent()) {
+            return repository.findAll();
+        }
+        return repository.findByState(state.get());
     }
 }

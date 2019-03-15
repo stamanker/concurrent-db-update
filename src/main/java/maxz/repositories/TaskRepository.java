@@ -19,5 +19,5 @@ public interface TaskRepository extends PagingAndSortingRepository<Task, Long> {
     @Query("select t from Task t where t.state = 0")
     Page<Task> findUnprocessed(Pageable p);
 
-    List<Task> findByState(int state);
+    List<Task> findByState(Integer state);
 }
